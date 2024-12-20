@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "linklistfn.h"
 
 typedef struct Flight
 {
@@ -25,11 +26,7 @@ void ex14_2()
     printf("%d\n", a.next);
 }
 
-typedef struct Node
-{
-    char alpha;
-    struct Node *next;
-} Node;
+
 
 void ex14_3()
 {
@@ -60,15 +57,7 @@ void ex14_4()
     putchar('\n');
 }
 
-void printNode(const Node *head)
-{
-    while (head)
-    {
-        printf("%c\t", head->alpha);
-        head = head->next;
-    }
-    putchar('\n');
-}
+
 
 void ex14_5()
 {
@@ -100,26 +89,6 @@ void ex14_6()
     printf("%p %p %p\n", act[0].next, act[1].next, act[2].next);
 }
 
-Node *builtLLByLoop(char letter[])
-{
-    int size = strlen(letter) + 1;
-    Node *linklist = (Node *)malloc(sizeof(Node) * size);
-    if (linklist == NULL)
-    {
-        printf("failed to allocate memory\n");
-        return NULL;
-    }
-    Node *now = &linklist[0];
-
-    for (int i = 0; i < size - 1; i++)
-    {
-        now->alpha = letter[i];
-        now->next = (i == size - 2) ? NULL : &linklist[i + 1];
-        printf("[%d]%c,%p\n", i, now->alpha, now->next);
-        now = now->next;
-    }
-    return linklist;
-}
 
 void ex14_7()
 {
@@ -187,6 +156,45 @@ void ex14_9()
     free(linklist);
 }
 
+
+
+void ex14_12()
+{
+    Node *stack = 0;
+    push(&stack, 'A');
+    push(&stack, 'B');
+    push(&stack, 'C');
+    printNode(stack);
+    free(stack);
+}
+
+
+
+void ex14_13()
+{
+    Node *head = 0;
+    push(&head, 'A');
+    push(&head, 'B');
+    push(&head, 'C');
+    printNode(head);
+    pop(&head);
+    printNode(head);
+    free(head);
+}
+
+
+
+void ex14_14()
+{
+    Node *stack = 0;
+    push(&stack, 'A');
+    push(&stack, 'B');
+    push(&stack, 'C');
+    printNode(stack);
+    release(&stack);
+    printNode(stack);
+}
+
 void main()
 {
     // ex14_2();
@@ -196,5 +204,8 @@ void main()
     // ex14_6();
     // ex14_7();
     // ex14_8();
-    ex14_9();
+    // ex14_9();
+    // ex14_12();
+    // ex14_13();
+    ex14_14();
 }
